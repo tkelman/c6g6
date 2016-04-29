@@ -20,7 +20,7 @@ RUN GCCVER=6.1.0 && \
     make install && \
     echo 'clean_requirements_on_remove=1' >> /etc/yum.conf && \
     yum erase -y gcc-c++ && \
-    yum clean && \
+    yum clean all && \
     rm -rf /tmp/c6g6
 
 
