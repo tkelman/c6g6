@@ -6,9 +6,8 @@ addons:
   apt:
     packages:
       - bar
+      - moreutils
 notifications:
   email: false
 script:
-  - git clone -q git://git.kitenet.net/moreutils
-  - make -C moreutils mispipe
-  - moreutils/mispipe "docker build ." bar > build.log || cat build.log
+  - mispipe "docker build ." bar > build.log || tail -c 2097152 build.log
