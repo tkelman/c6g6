@@ -2,7 +2,7 @@ language: c
 sudo: required
 services:
   - docker
-addons.apt.packages:
+addons: apt: packages:
   - bar
 notifications:
   email: false
