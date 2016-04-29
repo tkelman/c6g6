@@ -1,8 +1,10 @@
 FROM centos:6
 
-# glibc-devel is manually installed so it doesn't
-# get removed when gcc-c++ does
+# glibc-devel is manually installed so it doesn't get removed when gcc-c++ does
 # put new binutils in place so it gets built along with gcc
+# temporarily make a fake wget that just calls `curl -O $1` since the centos 6
+# docker image comes with curl but not wget, so not worth installing wget just
+# to run the gcc/contrib/download_prerequisites script
 RUN GCCVER=6.1.0 && \
     BINUTILSVER=2.26 && \
     yum install -y tar bzip2 gcc-c++ glibc-devel && \
@@ -22,18 +24,18 @@ RUN GCCVER=6.1.0 && \
     ../gcc-$GCCVER/configure --disable-multilib --enable-languages=c,c++,fortran && \
     make -j `nproc` && \
     make install && \
+    export LD_LIBRARY_PATH=/usr/local/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}} && \
     echo 'clean_requirements_on_remove=1' >> /etc/yum.conf && \
     yum erase -y gcc-c++ && \
     yum clean all && \
-    rm -rf /tmp/c6g6 && \
-    export LD_LIBRARY_PATH=/usr/local/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+    rm -rf /tmp/c6g6
 
 
-# build julia, to test if things work
-RUN yum install -y which patch xz m4 cmake openssl-devel centos-release-scl && \
-    yum install -y git19 python27 && \
-    source /opt/rh/git19/enable && \
-    source /opt/rh/python27/enable && \
-    git clone https://github.com/JuliaLang/julia /tmp/julia && \
-    cd /tmp/julia && \
-    make -j `nproc` testall
+# uncomment the following to build julia as a test whether things work
+#RUN yum install -y which patch xz m4 cmake openssl-devel centos-release-scl && \
+#    yum install -y git19 python27 && \
+#    source /opt/rh/git19/enable && \
+#    source /opt/rh/python27/enable && \
+#    git clone https://github.com/JuliaLang/julia /tmp/julia && \
+#    cd /tmp/julia && \
+#    make -j `nproc` testall
