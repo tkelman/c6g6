@@ -10,5 +10,5 @@ addons:
 notifications:
   email: false
 script:
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - mispipe "docker build ." bar > build.log || tail -c 2097152 build.log
