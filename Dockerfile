@@ -11,7 +11,8 @@ RUN GCCVER=6.1.0 && \
     curl http://mirrors.concertpass.com/gcc/releases/gcc-$GCCVER/gcc-$GCCVER.tar.bz2 | tar -xjf - && \
     curl http://ftp.gnu.org/gnu/binutils/binutils-$BINUTILSVER.tar.bz2 | tar -xjf - && \
     cd /tmp/c6g6/gcc-$GCCVER && \
-    for i in /tmp/c6g6/binutils-$BINUTILSVER/*; do ln -s $i; done && \
+    for i in bfd binutils cpu elfcpp etc gas gold gprof ld opcodes texinfo; \
+        do ln -s /tmp/c6g6/binutils-$BINUTILSVER/$i; done && \
     echo 'curl -O $1' > /usr/local/bin/wget && \
     chmod +x /usr/local/bin/wget && \
     contrib/download_prerequisites && \
