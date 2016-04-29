@@ -2,9 +2,7 @@ FROM centos:6
 
 # glibc-devel is manually installed so it doesn't get removed when gcc-c++ does
 # put new binutils in place so it gets built along with gcc
-# temporarily make a fake wget that just calls `curl -O $1` since the centos 6
-# docker image comes with curl but not wget, so not worth installing wget just
-# to run the gcc/contrib/download_prerequisites script
+# centos 6 docker image comes with curl but not wget by default
 RUN GCCVER=6.1.0 && \
     BINUTILSVER=2.26 && \
     yum install -y tar bzip2 gcc-c++ glibc-devel && \
@@ -15,10 +13,8 @@ RUN GCCVER=6.1.0 && \
     cd /tmp/c6g6/gcc-$GCCVER && \
     for i in bfd binutils cpu elfcpp etc gas gold gprof ld opcodes texinfo; \
         do ln -s /tmp/c6g6/binutils-$BINUTILSVER/$i; done && \
-    echo 'curl -O $1' > /usr/local/bin/wget && \
-    chmod +x /usr/local/bin/wget && \
+    sed -i 's/wget/curl -O/g' contrib/download_prerequisites && \
     contrib/download_prerequisites && \
-    rm /usr/local/bin/wget && \
     mkdir /tmp/c6g6/build && \
     cd /tmp/c6g6/build && \
     ../gcc-$GCCVER/configure --disable-multilib --enable-languages=c,c++,fortran && \
