@@ -2,8 +2,10 @@ language: c
 sudo: required
 services:
   - docker
-addons: apt: packages:
-  - bar
+addons:
+  apt:
+    packages:
+      - bar
 notifications:
   email: false
 script:
