@@ -16,7 +16,7 @@ RUN GCCVER=6.1.0 && \
     mkdir /tmp/c6g6/build && \
     cd /tmp/c6g6/build && \
     ../gcc-$GCCVER/configure --disable-multilib --enable-languages=c,c++,fortran && \
-    make -j `nprocs` && \
+    make -j `nproc` && \
     make install && \
     echo 'clean_requirements_on_remove=1' >> /etc/yum.conf && \
     yum erase -y gcc-c++ && \
@@ -32,4 +32,4 @@ RUN yum install -y which patch xz centos-release-scl && \
     ln -s /opt/rh/devtoolset-4/root/usr/bin/as /usr/local/bin/as && \
     git clone https://github.com/JuliaLang/julia /tmp/julia && \
     cd /tmp/julia && \
-    make -j8 testall
+    make -j `nproc` testall
