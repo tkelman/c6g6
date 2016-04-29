@@ -1,7 +1,12 @@
+language: c
 sudo: required
 services:
   - docker
+addons.apt.packages:
+  - bar
 notifications:
   email: false
 script:
-  - docker build .
+  - git clone -q git://git.kitenet.net/moreutils
+  - make -C moreutils mispipe
+  - moreutils/mispipe "docker build ." bar > build.log || cat build.log
