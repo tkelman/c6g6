@@ -31,8 +31,8 @@ RUN GCCVER=6.1.0 && \
 # build julia, to test if things work
 RUN yum install -y which patch xz centos-release-scl && \
     yum install -y git19 python27 && \
-    ln -s /opt/rh/git19/root/usr/bin/git /usr/local/bin/git && \
-    ln -s /opt/rh/python27/root/usr/bin/python /usr/local/bin/python && \
+    source /opt/rh/git19/enable && \
+    source /opt/rh/python27/enable && \
     git clone https://github.com/JuliaLang/julia /tmp/julia && \
     cd /tmp/julia && \
     make -j `nproc` testall
