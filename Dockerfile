@@ -24,12 +24,12 @@ RUN GCCVER=6.1.0 && \
     ../gcc-$GCCVER/configure --disable-multilib --enable-languages=c,c++,fortran && \
     make -j `nproc` && \
     make install && \
-    export LD_LIBRARY_PATH=/usr/local/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}} && \
     echo 'clean_requirements_on_remove=1' >> /etc/yum.conf && \
     yum erase -y gcc-c++ && \
     yum clean all && \
     rm -rf /tmp/c6g6
 
+ENV LD_LIBRARY_PATH /usr/local/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 # uncomment the following to build julia as a test whether things work
 #RUN yum install -y which patch xz m4 cmake openssl-devel centos-release-scl && \
