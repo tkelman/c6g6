@@ -25,11 +25,12 @@ RUN GCCVER=6.1.0 && \
     echo 'clean_requirements_on_remove=1' >> /etc/yum.conf && \
     yum erase -y gcc-c++ && \
     yum clean all && \
-    rm -rf /tmp/c6g6
+    rm -rf /tmp/c6g6 && \
+    export LD_LIBRARY_PATH=/usr/local/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 
 # build julia, to test if things work
-RUN yum install -y which patch xz centos-release-scl && \
+RUN yum install -y which patch xz m4 cmake openssl-devel centos-release-scl && \
     yum install -y git19 python27 && \
     source /opt/rh/git19/enable && \
     source /opt/rh/python27/enable && \
