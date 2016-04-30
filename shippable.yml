@@ -1,13 +1,13 @@
 env:
-  - secure: MOK09Q4yNc5ugoDlCktXMGQfhQcnxn/is2a0hZCcTELUzYHsuf4O8rkOX8QicBAMM0OTYxsgQZWTCAoNG+RFxS24fYH4JAthEhtw8QcdXlMeIBs2l4hJqJIZ+VHNsNhDlRKefWudafFLpe3UASeDC6mZ5yfhxS/VtGPHIq/Qo6jMyHxGpWXHe0SCP5P0Q4bBa1vyk21wgKdsMcC+CvVC1cMx4iKTxe1ZcwbqvgGCVa3JxN2+zGQhdIsCQxJHWu3Kp+mubmCgDtTtQvJX5kIddpGJuHryD+XZMRl8GkatTDTYO4c/XYRa4JllifJ4WqR0ac+1YuHUiNkhOW0P3SKiSA==
+  - secure: a33jim2XiheCsKNbyovPRqtocp+v8bwA9jwNYRiQhKVfLDqRzbJdWsCAdlUfwVwW8gy4WFCBCQB7bVVDvjPGgjwcZI4ahF7/XPxmJpfQUMS8ZWv7/aiqk4tFs9Qf/ekNu676TtBgLutWDQa48WLbF1bvcQqg5XcGD5SF1vLZqbGC78bZmH2mqDSs23OXxHz/AUJ0jv9MVUug7Eg2QPtHEk6qR6aRBfuPnWbJ6ErbStGj5YgdW8RvSlENWmj+9+baIzbm8XFrUvt16t3PagYd1L44UNbIwhzseayvr8wifKWNrRRdss1t04bz+ixb8AzgVc9EvCSHrhGnS+YEsFxOrA==
 
 build:
   pre_ci:
-    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
     - docker build -t tkelman/c6g6 .
   push:
     - docker push tkelman/c6g6
     - docker logout
-    - docker login -u="$DOCKER_USERNAME" -p="$QUAY_PASSWORD"
+    - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$QUAY_PASSWORD"
     - docker build -t quay.io/tkelman/c6g6 .
     - docker push quay.io/tkelman/c6g6
