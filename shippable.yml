@@ -4,7 +4,7 @@ build:
   push:
     - docker push tkelman/c6g6
 
-integrations:
-  hub:
-    - integrationName: docker-hub
-    - type: docker
+#integrations:
+#  hub:
+#    - integrationName: docker-hub
+#    - type: docker
