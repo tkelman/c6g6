@@ -1,0 +1,17 @@
+machine:
+  services:
+    - docker
+
+test:
+  override:
+    - docker build -t tkelman/c6g6 .
+
+deployment:
+  hub:
+    commands:
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker push tkelman/c6g6
+#      - docker logout
+#      - docker login -u="$DOCKER_USERNAME" -p="$QUAY_PASSWORD"
+#      - docker build -t quay.io/tkelman/c6g6 .
+#      - docker push quay.io/tkelman/c6g6
