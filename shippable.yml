@@ -1,0 +1,9 @@
+build:
+  pre_ci:
+    - docker build -t tkelman/c6g6 .
+  push:
+    - docker push tkelman/c6g6
+
+integrations:
+  hub:
+    - type: docker
