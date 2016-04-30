@@ -5,6 +5,7 @@ FROM centos:6
 # centos 6 docker image comes with curl but not wget by default
 RUN GCCVER=6.1.0 && \
     BINUTILSVER=2.26 && \
+    yum update -y && \
     yum install -y tar bzip2 gcc-c++ glibc-devel && \
     mkdir /tmp/c6g6 && \
     cd /tmp/c6g6 && \
