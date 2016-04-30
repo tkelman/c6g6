@@ -6,4 +6,5 @@ build:
 
 integrations:
   hub:
+    - integrationName: "docker hub"
     - type: docker
