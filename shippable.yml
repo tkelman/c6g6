@@ -11,3 +11,10 @@ build:
     - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$QUAY_PASSWORD"
     - docker build -t quay.io/tkelman/c6g6 .
     - docker push quay.io/tkelman/c6g6
+
+notifications:
+  - integrationName: email
+    type: email
+    on_success: never
+    on_failure: never
+    on_pull_request: never
