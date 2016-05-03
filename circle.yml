@@ -1,0 +1,18 @@
+machine:
+  services:
+    - docker
+
+test:
+  override:
+    - docker build -t tkelman/c6g6:juliadeps .
+
+deployment:
+  hub:
+    branch: juliadeps
+    commands:
+      - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+      - docker push tkelman/c6g6:juliadeps
+#      - docker logout
+#      - docker login -u="$DOCKER_USERNAME" -p="$QUAY_PASSWORD"
+#      - docker build -t quay.io/tkelman/c6g6:juliadeps .
+#      - docker push quay.io/tkelman/c6g6:juliadeps
