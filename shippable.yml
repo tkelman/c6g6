@@ -18,3 +18,4 @@ notifications:
     on_success: never
     on_failure: never
     on_pull_request: never
+    on_timeout: never
