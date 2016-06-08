@@ -4,15 +4,15 @@ machine:
 
 test:
   override:
-    - docker build -t tkelman/c6g6:juliadeps .
+    - docker build -t tkelman/c6g6:juliadeps04 .
 
 deployment:
   hub:
-    branch: juliadeps
+    branch: juliadeps04
     commands:
       - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-      - docker push tkelman/c6g6:juliadeps
+      - docker push tkelman/c6g6:juliadeps04
 #      - docker logout
 #      - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$QUAY_PASSWORD"
-#      - docker build -t quay.io/tkelman/c6g6:juliadeps .
-#      - docker push quay.io/tkelman/c6g6:juliadeps
+#      - docker build -t quay.io/tkelman/c6g6:juliadeps04 .
+#      - docker push quay.io/tkelman/c6g6:juliadeps04
