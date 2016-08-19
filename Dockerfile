@@ -4,7 +4,7 @@ FROM centos:6
 # put new binutils in place so it gets built along with gcc
 # centos 6 docker image comes with curl but not wget by default
 RUN GCCVER=6.1.0 && \
-    BINUTILSVER=2.26 && \
+    BINUTILSVER=2.27 && \
     yum update -y && \
     yum install -y tar bzip2 gcc-c++ glibc-devel && \
     mkdir /tmp/c6g6 && \
