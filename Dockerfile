@@ -3,8 +3,8 @@ FROM centos:6
 # glibc-devel is manually installed so it doesn't get removed when gcc-c++ does
 # put new binutils in place so it gets built along with gcc
 # centos 6 docker image comes with curl but not wget by default
-RUN GCCVER=6.3.0 && \
-    BINUTILSVER=2.27 && \
+RUN GCCVER=7.1.0 && \
+    BINUTILSVER=2.28 && \
     yum update -y && \
     yum install -y tar bzip2 gcc-c++ glibc-devel && \
     mkdir /tmp/c6g6 && \
