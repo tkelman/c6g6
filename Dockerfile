@@ -38,7 +38,9 @@ RUN yum install -y which patch xz m4 wget epel-release && \
     sed -e 's/MINOR=7/MINOR=6/' -e 's/| sha/#/g' \
         contrib/download_cmake.sh > contrib/download_cmake361.sh && \
     sh contrib/download_cmake361.sh && \
-    make -j8 FORCE_ASSERTIONS=1 LLVM_ASSERTIONS=1 -C deps && \
+    echo 'override FORCE_ASSERTIONS = 1' >> Make.user && \
+    echo 'override LLVM_ASSERTIONS = 1' >> Make.user && \
+    make -j8 -C deps && \
     yum clean all
 
 #    yum erase -y which patch xz m4 wget epel-release git && \
