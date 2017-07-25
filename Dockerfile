@@ -1,13 +1,11 @@
 FROM centos:5.11
 
 # put new binutils in place so it gets built along with gcc
-# multilib_policy=best is to avoid 32 bit versions of curl etc
 RUN GCCVER=7.1.0 && \
     BINUTILSVER=2.28 && \
     sed -i 's|enabled=1|enabled=0|' /etc/yum/pluginconf.d/fastestmirror.conf && \
     sed -i 's|mirrorlist=|#mirrorlist=|' /etc/yum.repos.d/*.repo && \
     sed -i 's|#baseurl=http://mirror.centos.org/centos/$releasever|baseurl=http://vault.centos.org/5.11|' /etc/yum.repos.d/*.repo && \
-    echo 'multilib_policy=best' >> /etc/yum.conf && \
     yum update -y && \
     yum install -y wget bzip2 make gcc-c++ && \
     mkdir /tmp/c5g7 && \
