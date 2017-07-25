@@ -9,15 +9,16 @@ RUN GCCVER=7.1.0 && \
     sed -i 's|#baseurl=http://mirror.centos.org/centos/$releasever|baseurl=http://vault.centos.org/5.11|' /etc/yum.repos.d/*.repo && \
     echo 'multilib_policy=best' >> /etc/yum.conf && \
     yum update -y && \
-    yum install -y curl bzip2 make gcc-c++ && \
+    yum install -y wget bzip2 make gcc-c++ && \
     mkdir /tmp/c5g7 && \
     cd /tmp/c5g7 && \
-    curl http://mirrors.concertpass.com/gcc/releases/gcc-$GCCVER/gcc-$GCCVER.tar.bz2 | tar -xjf - && \
-    curl http://ftp.gnu.org/gnu/binutils/binutils-$BINUTILSVER.tar.bz2 | tar -xjf - && \
+    wget http://mirrors.concertpass.com/gcc/releases/gcc-$GCCVER/gcc-$GCCVER.tar.bz2 && \
+    tar -xjf gcc-$GCCVER.tar.bz2 && \
+    wget http://ftp.gnu.org/gnu/binutils/binutils-$BINUTILSVER.tar.bz2 && \
+    tar -xjf binutils-$BINUTILSVER.tar.bz2 && \
     cd /tmp/c5g7/gcc-$GCCVER && \
     for i in bfd binutils cpu elfcpp etc gas gold gprof ld opcodes texinfo; \
         do ln -s /tmp/c5g7/binutils-$BINUTILSVER/$i; done && \
-    sed -i 's/--no-verbose//' contrib/download_prerequisites && \
     contrib/download_prerequisites && \
     mkdir /tmp/c5g7/build && \
     cd /tmp/c5g7/build && \
