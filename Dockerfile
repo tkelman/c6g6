@@ -45,4 +45,19 @@ RUN yum install -y which patch xz m4 wget epel-release && \
 
 #    yum erase -y which patch xz m4 wget epel-release git && \
 
+# build latest gdb
+RUN GDBVER=8.0 && \
+    yum install -y texinfo && \
+    mkdir /tmp/gdb && \
+    cd /tmp/gdb && \
+    wget http://ftp.gnu.org/gnu/gdb/gdb-$GDBVER.tar.xz && \
+    tar -xJf gdb-$GDBVER.tar.xz && \
+    cd /tmp/gdb/gdb-$GDBVER && \
+    ./configure && \
+    make -j8 && \
+    make install && \
+    yum erase -y texinfo && \
+    yum clean all && \
+    rm -rf /tmp/gdb
+
 WORKDIR /tmp/julia
